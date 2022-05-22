@@ -4,11 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"userBar/back/service"
 )
+
 type Handler struct {
- 	services *service.Service
+	services *service.Service
 }
 
-func NewHandler(services *service.Service) *Handler  {
+func NewHandler(services *service.Service) *Handler {
 	return &Handler{services: services}
 }
 
@@ -28,10 +29,8 @@ func (h *Handler) InitRoutes() *gin.Engine {
 
 			client.GET("/list", h.ClientList)
 
-			buy:= client.Group("/buy")
-			{
-				buy.PUT("/:id", h.Buy)
-			}
+			client.PUT("/buy", h.Buy)
+
 		}
 		barman := api.Group("/barman")
 		{
