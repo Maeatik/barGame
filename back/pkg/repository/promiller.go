@@ -11,9 +11,7 @@ type PromillerPostgres struct {
 	db *sqlx.DB
 }
 
-
-
-func NewPromiller(db *sqlx.DB) *PromillerPostgres  {
+func NewPromiller(db *sqlx.DB) *PromillerPostgres {
 	return &PromillerPostgres{db: db}
 }
 
@@ -39,10 +37,15 @@ func (p PromillerPostgres) PromillerDec() string {
 					args = append(args, user.Promille, user.Id)
 					_, err := p.db.Exec(queryPromiller, args...)
 					args = nil
-					logrus.Println(err)
+					if err != nil {
+						logrus.Println(err)
+					}
 				}
 			}
+			logrus.Println("Прошел час")
 		}
+
 	}()
+
 	return "Прошел час"
 }
